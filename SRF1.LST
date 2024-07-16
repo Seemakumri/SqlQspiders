@@ -1,0 +1,501 @@
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE INSTR(ENAME, 'A') IS NULL;
+
+no rows selected
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME, 'A') IS NOT NULL
+SQL> /
+
+ENAME                                                                                               
+----------                                                                                          
+SMITH                                                                                               
+ALLEN                                                                                               
+WARD                                                                                                
+JONES                                                                                               
+MARTIN                                                                                              
+BLAKE                                                                                               
+CLARK                                                                                               
+SCOTT                                                                                               
+KING                                                                                                
+TURNER                                                                                              
+ADAMS                                                                                               
+JAMES                                                                                               
+FORD                                                                                                
+MILLER                                                                                              
+
+14 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME, 'A',1,2) IS NOT NULL
+SQL> /
+
+ENAME                                                                                               
+----------                                                                                          
+SMITH                                                                                               
+ALLEN                                                                                               
+WARD                                                                                                
+JONES                                                                                               
+MARTIN                                                                                              
+BLAKE                                                                                               
+CLARK                                                                                               
+SCOTT                                                                                               
+KING                                                                                                
+TURNER                                                                                              
+ADAMS                                                                                               
+JAMES                                                                                               
+FORD                                                                                                
+MILLER                                                                                              
+
+14 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME, 'A') IS IN ENAME
+SQL> /
+WHERE INSTR(ENAME, 'A') IS IN ENAME
+                           *
+ERROR at line 3:
+ORA-00908: missing NULL keyword 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME, 'A') IS ENAME
+SQL> /
+WHERE INSTR(ENAME, 'A') IS ENAME
+                           *
+ERROR at line 3:
+ORA-00908: missing NULL keyword 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME, 'A') IN ENAME
+SQL> /
+WHERE INSTR(ENAME, 'A') IN ENAME
+                           *
+ERROR at line 3:
+ORA-01722: invalid number 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME, 'A') IS NOT 0 
+SQL> /
+WHERE INSTR(ENAME, 'A') IS NOT 0 
+                               *
+ERROR at line 3:
+ORA-00908: missing NULL keyword 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME, 'A') !=0 
+SQL> /
+
+ENAME                                                                                               
+----------                                                                                          
+ALLEN                                                                                               
+WARD                                                                                                
+MARTIN                                                                                              
+BLAKE                                                                                               
+CLARK                                                                                               
+ADAMS                                                                                               
+JAMES                                                                                               
+
+7 rows selected.
+
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE INSTR(ENAME, 'A', 1, 2);
+WHERE INSTR(ENAME, 'A', 1, 2)
+                            *
+ERROR at line 3:
+ORA-00920: invalid relational operator 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME, 'A', 1, 2) !=0
+SQL> /
+
+ENAME                                                                                               
+----------                                                                                          
+ADAMS                                                                                               
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME, 'LL', 1, 2) !=0
+SQL> /
+
+no rows selected
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME, 'L', 1, 2) !=0
+SQL> /
+
+ENAME                                                                                               
+----------                                                                                          
+ALLEN                                                                                               
+MILLER                                                                                              
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME, 'A', 1, 2) !=0
+SQL> /
+
+ENAME                                                                                               
+----------                                                                                          
+ADAMS                                                                                               
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME, 'A', 1, 2) >=1
+SQL> /
+
+ENAME                                                                                               
+----------                                                                                          
+ADAMS                                                                                               
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME, 'A', 1, 2) >0
+SQL> /
+
+ENAME                                                                                               
+----------                                                                                          
+ADAMS                                                                                               
+
+SQL> SELECT ENAME
+  2  FROM DUAL
+  3  WHERE
+  4  
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME, 'A', 1, 2) > 0 AND INSTR(ENAME, 'A', 1, 3) = 0
+SQL> /
+
+ENAME                                                                                               
+----------                                                                                          
+ADAMS                                                                                               
+
+SQL>   ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME, 'A', 1, 2) > 0 AND INSTR(ENAME, 'A', 1, 2) = 0
+SQL> /
+
+no rows selected
+
+SQL> SELECT SAL
+  2  FROM EMP
+  3  WHERE MOD(SAL, 2) -1;
+WHERE MOD(SAL, 2) -1
+                   *
+ERROR at line 3:
+ORA-00920: invalid relational operator 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT SAL
+  2  FROM EMP
+  3* WHERE MOD(SAL, 2)-1
+SQL> /
+WHERE MOD(SAL, 2)-1
+                  *
+ERROR at line 3:
+ORA-00920: invalid relational operator 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT SAL
+  2  FROM EMP
+  3* WHERE MOD(SAL, 2) = 1
+SQL> /
+
+       SAL                                                                                          
+----------                                                                                          
+      2975                                                                                          
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT SAL
+  2  FROM EMP
+  3* WHERE MOD(SAL, 2) = 0
+SQL> /
+
+       SAL                                                                                          
+----------                                                                                          
+       800                                                                                          
+      1600                                                                                          
+      1250                                                                                          
+      1250                                                                                          
+      2850                                                                                          
+      2450                                                                                          
+      3000                                                                                          
+      5000                                                                                          
+      1500                                                                                          
+      1100                                                                                          
+       950                                                                                          
+      3000                                                                                          
+      1300                                                                                          
+
+13 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMPNO
+  2  FROM EMP
+  3* WHERE MOD(EMPNO, 2) = 0
+SQL> /
+
+     EMPNO                                                                                          
+----------                                                                                          
+      7566                                                                                          
+      7654                                                                                          
+      7698                                                                                          
+      7782                                                                                          
+      7788                                                                                          
+      7844                                                                                          
+      7876                                                                                          
+      7900                                                                                          
+      7902                                                                                          
+      7934                                                                                          
+
+10 rows selected.
+
+SQL> SELECT SYSDATE, CURRENT_DATE, SYSTIMESTAMP;
+SELECT SYSDATE, CURRENT_DATE, SYSTIMESTAMP
+                                         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT SYSDATE, CURRENT_DATE, SYSTIMESTAMP
+  2* FROM DUAL
+  3  /
+
+SYSDATE   CURRENT_D SYSTIMESTAMP                                                                    
+--------- --------- ---------------------------------------------------------------------------     
+16-JUL-24 16-JUL-24 16-JUL-24 12.44.33.082000 PM +05:30                                             
+
+SQL> SELECT MONTHS-BETWEEN ('01-JAN-81' , '01-DEC-82')
+  2  FROM EMP;
+SELECT MONTHS-BETWEEN ('01-JAN-81' , '01-DEC-82')
+              *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT MONTHS_BETWEEN ('16-JUL-23' , '14-FEB-23')
+  2* FROM DUAL
+SQL> /
+
+MONTHS_BETWEEN('16-JUL-23','14-FEB-23')                                                             
+---------------------------------------                                                             
+                             5.06451613                                                             
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT MONTHS_BETWEEN ('' , '14-FEB-23')
+  2* FROM EMP
+SQL> /
+
+MONTHS_BETWEEN('','14-FEB-23')                                                                      
+------------------------------                                                                      
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+
+14 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT *
+  2* FROM EMP
+SQL> /
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20               
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30               
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30               
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30               
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10               
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20               
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10               
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30               
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20               
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30               
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20               
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10               
+
+14 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT MONTH_BETWEEN(SYSDATE, '01-JAN-80')
+  2* FROM EMP
+SQL> /
+SELECT MONTH_BETWEEN(SYSDATE, '01-JAN-80')
+       *
+ERROR at line 1:
+ORA-00904: "MONTH_BETWEEN": invalid identifier 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ROUND(MONTHS_BETWEEN(SYSDATE, '01-JAN-80')
+  2* FROM EMP
+SQL> /
+FROM EMP
+*
+ERROR at line 2:
+ORA-00907: missing right parenthesis 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ROUND(MONTHS_BETWEEN(SYSDATE,HIREDATE)
+  2* FROM EMP
+SQL> /
+FROM EMP
+*
+ERROR at line 2:
+ORA-00907: missing right parenthesis 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ROUND(MONTHS_BETWEEN(SYSDATE,HIREDATE))
+  2* FROM EMP
+SQL> /
+
+ROUND(MONTHS_BETWEEN(SYSDATE,HIREDATE))                                                             
+---------------------------------------                                                             
+                                    523                                                             
+                                    521                                                             
+                                    521                                                             
+                                    519                                                             
+                                    514                                                             
+                                    519                                                             
+                                    517                                                             
+                                    447                                                             
+                                    512                                                             
+                                    514                                                             
+                                    446                                                             
+                                    511                                                             
+                                    511                                                             
+                                    510                                                             
+
+14 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ROUND(ROUND(MONTHS_BETWEEN(SYSDATE,HIREDATE)/12))
+  2* FROM EMP
+SQL> /
+
+ROUND(ROUND(MONTHS_BETWEEN(SYSDATE,HIREDATE)/12))                                                   
+-------------------------------------------------                                                   
+                                               44                                                   
+                                               43                                                   
+                                               43                                                   
+                                               43                                                   
+                                               43                                                   
+                                               43                                                   
+                                               43                                                   
+                                               37                                                   
+                                               43                                                   
+                                               43                                                   
+                                               37                                                   
+                                               43                                                   
+                                               43                                                   
+                                               42                                                   
+
+14 rows selected.
+
+SQL> J                                                                                                                                                                                         BBBBBBBBB
+SP2-0734: unknown command beginning "J         ..." - rest of line ignored.
+SQL> SPOOL OFF

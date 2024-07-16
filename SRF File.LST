@@ -1,0 +1,120 @@
+
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE LENGTH(ENAME) = 4;
+
+ENAME                                                                                               
+----------                                                                                          
+WARD                                                                                                
+KING                                                                                                
+FORD                                                                                                
+
+SQL> SELECT JOB
+  2  FROM EMP
+  3  WHERE LENGTH(JOB) = 7;
+
+JOB                                                                                                 
+---------                                                                                           
+MANAGER                                                                                             
+MANAGER                                                                                             
+MANAGER                                                                                             
+ANALYST                                                                                             
+ANALYST                                                                                             
+
+
+SQL> SELECT LENGTH('QSPIDERS')-LENGTH(REPLACE('QSPIDERS','S'))
+  2  FROM DUAL;
+
+LENGTH('QSPIDERS')-LENGTH(REPLACE('QSPIDERS','S'))                                                  
+--------------------------------------------------                                                  
+                                                 2                                                  
+
+  1  SELECT JOB
+  2  FROM EMP
+  3* WHERE SUBSTR(JOB, LENGTH(JOB) - 2, 3) = 'MAN'
+SQL> /
+
+JOB                                                                                                 
+---------                                                                                           
+SALESMAN                                                                                            
+SALESMAN                                                                                            
+SALESMAN                                                                                            
+SALESMAN                                                                                            
+
+
+  1  SELECT JOB 
+  2  FROM EMP
+  3* WHERE SUBSTR(JOB, 1, 3) = 'MAN'
+SQL> /
+
+JOB                                                                                                 
+---------                                                                                           
+MANAGER                                                                                             
+MANAGER                                                                                             
+MANAGER                                                                                             
+
+  1  SELECT DNAME 
+  2  FROM DEPT
+  3* WHERE DNAME LIKE '%O%'
+SQL> /
+
+DNAME                                                                                               
+--------------                                                                                      
+ACCOUNTING                                                                                          
+OPERATIONS                                                                                          
+
+
+  1  SELECT LENGTH('HELLLLL') - LENGTH(REPLACE('HELLLLL', 'L'))
+  2* FROM DUAL
+SQL> /
+
+LENGTH('HELLLLL')-LENGTH(REPLACE('HELLLLL','L'))                                                    
+------------------------------------------------                                                    
+                                               5                                                    
+
+  1  SELECT ENAME
+  2  FROM EMP 
+  3* WHERE LENGTH(ENAME) - LENGTH(REPLACE(ENAME, 'L', '')) = 1
+SQL> /
+
+ENAME                                                                                               
+----------                                                                                          
+BLAKE                                                                                               
+CLARK                                                                                               
+
+
+  1  SELECT DNAME 
+  2  FROM DEPT
+  3* WHERE INSTR(DNAME, 'O') > 0
+SQL> /
+
+DNAME                                                                                               
+--------------                                                                                      
+ACCOUNTING                                                                                          
+OPERATIONS                                                                                          
+
+
+  1  SELECT LOWER(SUBSTR(ENAME, 1, 3)) || UPPER(SUBSTR(ENAME, 4)) 
+  2* FROM EMP
+SQL> /
+
+LOWER(SUBS                                                                                          
+----------                                                                                          
+smiTH                                                                                               
+allEN                                                                                               
+warD                                                                                                
+jonES                                                                                               
+marTIN                                                                                              
+blaKE                                                                                               
+claRK                                                                                               
+scoTT                                                                                               
+kinG                                                                                                
+turNER                                                                                              
+adaMS                                                                                               
+jamES                                                                                               
+forD                                                                                                
+milLER                                                                                              
+
+14 rows selected.
+
+SQL> SPOOL OFF;
