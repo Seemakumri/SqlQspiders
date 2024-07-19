@@ -1,0 +1,113 @@
+SQL> SELECT SAL + COMM
+  2  FROM EMP;
+
+  SAL+COMM                                                                                          
+----------                                                                                          
+                                                                                                    
+      1900                                                                                          
+      1750                                                                                          
+                                                                                                    
+      2650                                                                                          
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+      1500                                                                                          
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+
+14 rows selected.
+
+SQL> SELECT NVL(COMM , 0 ) +SAL
+  2  FROM EMP;
+
+NVL(COMM,0)+SAL                                                                                     
+---------------                                                                                     
+            800                                                                                     
+           1900                                                                                     
+           1750                                                                                     
+           2975                                                                                     
+           2650                                                                                     
+           2850                                                                                     
+           2450                                                                                     
+           3000                                                                                     
+           5000                                                                                     
+           1500                                                                                     
+           1100                                                                                     
+            950                                                                                     
+           3000                                                                                     
+           1300                                                                                     
+
+14 rows selected.
+
+
+  
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  CREATE TABLE SHOP(
+  2      SNO NUMBER(20) PRIMARY KEY
+  3      CHECK (SNO>0) CHECK (LENGTH (SNO) =20),
+  4      S_NAME VARCHAR(100) NOT NULL,
+  5*     LOCATION VARCHAR(100) NOT NULL)
+SQL> /
+
+Table created.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  CREATE TABLE JUICE(
+  2      JUICENO NUMBER(20) PRIMARY KEY
+  3      CHECK (JUICENO>0) CHECK (LENGTH (JUICENO) =20),
+  4      JUICENAME VARCHAR(100) NOT NULL,
+  5      LOCATION VARCHAR(100) NOT NULL,
+  6      SNO NUMBER(20),
+  7      CONSTRAINT FK_SNO FOREIGN KEY (SNO)
+  8*     REFERENCES SHOP (SNO))
+SQL> /
+
+Table created.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  CREATE TABLE DEPARTMENT (
+  2      DEPTNO NUMBER(10) PRIMARY KEY,
+  3      DEPT_NAME VARCHAR(100) NOT NULL,
+  4      LOCATION VARCHAR(100) NOT NULL
+  5* )
+SQL> /
+
+Table created.
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  CREATE TABLE PROJECT (
+  2      PROJECT_ID NUMBER(10) PRIMARY KEY,
+  3      PROJECT_NAME VARCHAR(100) NOT NULL ,
+  4      START_DATE DATE NOT NULL,
+  5*     END_DATE DATE NOT NULL)
+SQL> /
+
+Table created.
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+1  CREATE TABLE STUDENT (
+  2      S_ID NUMBER(10) CHECK (S_ID>0) CHECK (LENGTH (S_ID) =10),
+  3      S_NAME VARCHAR(100) NOT NULL ,
+  4      AGE NUMBER (2) CHECK (AGE>0),
+  5      PHONE_NUMBER NUMBER (10) CHECK (PH_NO>0),
+  6*     CHECK (LENGTH(PH_NO)=10));
+SQL>
+
+Table created
+ 
