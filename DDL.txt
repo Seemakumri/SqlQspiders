@@ -1,0 +1,339 @@
+
+SQL> RENAME JUICE TO JUICESHOP;
+
+Table renamed.
+
+SQL> ALTER TABLE JUICESHOP
+  2  ADD MAILID VARCHAR(20) UNIQUE;
+
+Table altered.
+
+SQL> ALTER TABLE JUICESHOP
+  2  RENAME COLUMN MAILID TO EMAIL;
+
+Table altered.
+
+SQL> ALTER TABLE JUICESHOP
+  2  DROP COLUMN EMAIL;
+
+Table altered.
+
+SQL> ALTER TABLE JUICESHOP
+  2  MODIFY JUICENAME VARCHAR(120);
+
+Table altered.
+
+SQL> DESC JUICESHOP;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ JUICENO                                               NOT NULL NUMBER(20)
+ JUICENAME                                             NOT NULL VARCHAR2(120)
+ LOCATION                                              NOT NULL VARCHAR2(100)
+ SNO                                                            NUMBER(20)
+
+SQL> ALTER TABLE JUICESHOP
+  2  MODIFY JUICENAME VARCHAR(120) NULL;
+
+Table altered.
+
+SQL> P7ALTER TABLE JUICESHOP
+SP2-0734: unknown command beginning "P7ALTER TA..." - rest of line ignored.
+SQL> ALTER TABLE JUICESHOP
+  2  ADD ADHAR NUMBER(5) CHECK(LENGTH(ADHAR)=5);
+
+Table altered.
+
+SQL> DESC JUICESHOP;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ JUICENO                                               NOT NULL NUMBER(20)
+ JUICENAME                                                      VARCHAR2(120)
+ LOCATION                                              NOT NULL VARCHAR2(100)
+ SNO                                                            NUMBER(20)
+ ADHAR                                                          NUMBER(5)
+
+SQL> ALTER TABLE JUICESHOP
+  2  ADD CONSTRAINT UK_ADHAR UNIQUE(ADHAR)
+  3  ;
+
+Table altered.
+
+SQL> ALTER TABLE JUICESHOP
+  2  DROP CONSTRAINT UK_ADHAR;
+
+Table altered.
+
+SQL> DESC JUICESHOP;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ JUICENO                                               NOT NULL NUMBER(20)
+ JUICENAME                                                      VARCHAR2(120)
+ LOCATION                                              NOT NULL VARCHAR2(100)
+ SNO                                                            NUMBER(20)
+ ADHAR                                                          NUMBER(5)
+
+SQL> SELECT CONSTRAINT_TYPE, CONSTRAINT_NAME
+  2  FROM USER_CONSTRAINTS
+  3  WHERE TABLE_NAME = 'JUICESHOP';
+
+C CONSTRAINT_NAME
+- ------------------------------
+C SYS_C005718
+C SYS_C005705
+C SYS_C005706
+C SYS_C005707
+P SYS_C005708
+R FK_SNO
+
+6 rows selected.
+
+
+SQL> ALTER TABLE JUICESHOP
+  2  ADD EMAIL VARCHAR(20) UNIQUE;
+
+Table altered.
+
+SQL> DESC JUICESHOP;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ JUICENO                                               NOT NULL NUMBER(20)
+ JUICENAME                                                      VARCHAR2(120)
+ LOCATION                                              NOT NULL VARCHAR2(100)
+ SNO                                                            NUMBER(20)
+ ADHAR                                                          NUMBER(5)
+ EMAIL                                                          VARCHAR2(20)
+
+SQL> SELECT CONSTRAINT_TYPE, CONSTRAINT_NAME
+  2  FROM USER_CONSTRAINTS
+  3  WHERE TABLE_NAME = 'JUICESHOP';
+
+C CONSTRAINT_NAME
+- ------------------------------
+C SYS_C005718
+C SYS_C005705
+C SYS_C005706
+C SYS_C005707
+P SYS_C005708
+R FK_SNO
+U SYS_C005720
+
+7 rows selected.
+
+
+  1  ALTER TABLE JUICESHOP
+  2* DROP CONSTRAINT SYS_C005720
+SQL> /
+
+Table altered.
+
+SQL> ALTER TABLE PROJECT
+  2  ADD CONSTRAINT FK_PROJECT_ID FOREIGN KEY (PROJECT_ID)
+  3  REFERENCES PROJECT (PROJECT_ID);
+
+Table altered.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  CREATE TABLE STUDENT(
+  2  SID NUMBER(5) PRIMARY KEY
+  3  CHECK (SID >0)
+  4  CHECK (LENGTH (SID)=5),
+  5  SNAME VARCHAR(10) NOT NULL,
+  6  AGE NUMBER (2) CHECK (AGE>0),
+  7  PHONENO NUMBER (10) CHECK (PHONENO >0) CHECK (LENGTH (PHONENO)=10),
+  8* MAILID VARCHAR(10) UNIQUE)
+SQL> /
+
+Table created.
+
+SQL> DESC STUDENT;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ SID                                                   NOT NULL NUMBER(5)
+ SNAME                                                 NOT NULL VARCHAR2(10)
+ AGE                                                            NUMBER(2)
+ PHONENO                                                        NUMBER(10)
+ MAILID                                                         VARCHAR2(10)
+
+
+
+  1* INSERT INTO STUDENT(SNAME, SID, PHONENO, AGE, MAILID) VALUES ('SEEMA', 45123, 3456781234, 22, '
+SQL> /
+
+1 row created.
+
+SQL> DESC STUDENT;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ SID                                                   NOT NULL NUMBER(5)
+ SNAME                                                 NOT NULL VARCHAR2(10)
+ AGE                                                            NUMBER(2)
+ PHONENO                                                        NUMBER(10)
+ MAILID                                                         VARCHAR2(10)
+
+SQL> SELECT *
+  2  FROM STUDENT;
+
+       SID SNAME             AGE    PHONENO MAILID
+---------- ---------- ---------- ---------- ----------
+     45123 SEEMA              22 3456781234 SIMA@GMAIL
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1* INSERT INTO STUDENT VALUES(&SID,'&SNAME',&AGE, &PHONENO, '&MAILID')
+SQL> /
+Enter value for sid: 12345
+Enter value for sname: SEEMA
+Enter value for age: 22
+Enter value for phoneno: 2345677881
+Enter value for mailid: SEEMAKRI
+old   1: INSERT INTO STUDENT VALUES(&SID,'&SNAME',&AGE, &PHONENO, '&MAILID')
+new   1: INSERT INTO STUDENT VALUES(12345,'SEEMA',22, 2345677881, 'SEEMAKRI')
+
+1 row created.
+
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  UPDATE STUDENT
+  2  SET SNAME ='XYZ', AGE= 25
+  3* WHERE SID = 12345
+SQL> /
+
+1 row updated.
+
+
+SQL> DELETE FROM STUDENT
+  2  WHERE SID = 12345;
+
+1 row deleted.
+
+  1* INSERT INTO STUDENT VALUES (12334, 'SEBI', 28, 2233445566, 'SEBI@GMAI')
+SQL> 
+SQL> /
+
+1 row created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1* INSERT INTO STUDENT VALUES (12734, 'MANTASHA', 29, 1133445566, 'MANN@GMAI')
+SQL> /
+
+1 row created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> ROLLBACK;
+
+Rollback complete.
+
+SQL> SELECT *
+  2  FROM STUDENT;
+
+       SID SNAME             AGE    PHONENO MAILID
+---------- ---------- ---------- ---------- ----------
+     45123 SEEMA              22 3456781234 SIMA@GMAIL
+     12334 SEBI               28 2233445566 SEBI@GMAI
+     12734 MANTASHA           29 1133445566 MANN@GMAI
+
+
+
+  1  SELECT *
+  2* FROM STUDENT
+SQL> 
+SQL> DESC STUDENT;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ---------------------------
+ SID                                                   NOT NULL NUMBER(5)
+ SNAME                                                 NOT NULL VARCHAR2(10)
+ AGE                                                            NUMBER(2)
+ PHONENO                                                        NUMBER(10)
+ MAILID                                                         VARCHAR2(10)
+
+SQL> SELECT * 
+  2  FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10
+
+14 rows selected.
+
+SQL> GRANT SELECT
+  2  ON EMP
+  3  TO HR;
+
+Grant succeeded.
+
+
+SQL> CONN HR
+Enter password: *****
+Connected.
+SQL> select *
+  2  from scott.emp;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10
+
+14 rows selected.
+
+SQL> CONN SCOTT
+Enter password: *****
+Connected.
+
+SQL> REVOKE SELECT 
+  2  ON EMP
+  3  FROM HR;
+
+Revoke succeeded.
+
+
+
+
+
+
+
+
+
+
+
+
